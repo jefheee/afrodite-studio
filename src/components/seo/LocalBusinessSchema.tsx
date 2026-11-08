@@ -13,7 +13,7 @@ export function LocalBusinessSchema() {
     priceRange: "$$",
     currenciesAccepted: "BRL",
     paymentAccepted: "PIX, Cartão de Crédito, Cartão de Débito, Dinheiro",
-    image: "https://studiomicheleafrodite.com.br/assets/espaco/decoracoesespaco.jpg",
+    image: "https://studiomicheleafrodite.com.br/logoafrodite.jpg",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Rua Joci José Martins, 247, Pme Offices Tower, Pagani",

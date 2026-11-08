@@ -17,8 +17,7 @@ export interface StudioRoom {
   ctaLabel: string;
   instagramHandle: "@studiomicheleafrodite" | "@centrointegradomicheleafrodite";
   instagramUrl: string;
-  coverImage: string;
-  galleryImages: { src: string; label: string }[];
+  specs: string[];
   specialties: SpecialtyGroup[];
   procedures: {
     id: string;
@@ -95,11 +94,10 @@ export const STUDIO_ROOMS: StudioRoom[] = [
     ctaLabel: "Agendar Cabelo, Unhas ou Sobrancelhas",
     instagramHandle: "@centrointegradomicheleafrodite",
     instagramUrl: "https://www.instagram.com/centrointegradomicheleafrodite/",
-    coverImage: "/assets/espaco/decoracoesespaco.jpg",
-    galleryImages: [
-      { src: "/assets/espaco/decoracoesespaco.jpg", label: "Salão Principal & Recepção" },
-      { src: "/assets/modelos_clientes/brown_lamination/brown_lamination (8).jpeg", label: "Visagismo & Sobrancelhas" },
-      { src: "/assets/modelos_clientes/design_simples/design_simples (1).jpg", label: "Estética Facial & Design" },
+    specs: [
+      "Acesso central e recepção para clientes",
+      "Ambiente climatizado e aconchegante",
+      "Linhas profissionais de alta performance",
     ],
     specialties: [
       {
@@ -160,11 +158,10 @@ export const STUDIO_ROOMS: StudioRoom[] = [
     ctaLabel: "Solicitar Avaliação Paramédica / Orçamento de Tattoo",
     instagramHandle: "@studiomicheleafrodite",
     instagramUrl: "https://www.instagram.com/studiomicheleafrodite/",
-    coverImage: "/assets/modelos_clientes/micropigmentacao_fio_a_fio/micropigmentacao_fio_a_fio (1).jpeg",
-    galleryImages: [
-      { src: "/assets/modelos_clientes/micropigmentacao_fio_a_fio/micropigmentacao_fio_a_fio (1).jpeg", label: "Dermopigmentação & Hiper-realismo" },
-      { src: "/assets/modelos_clientes/micropigmentacao_labial/micropigmentacao_labial_depois.jpeg", label: "Revitalização & Micropigmentação Labial" },
-      { src: "/assets/espaco/fotoespaco.jpg", label: "Consultório Privativo & Biossegurança" },
+    specs: [
+      "Consultório privativo com biossegurança hospitalar",
+      "Pigmentos estéreis e dermógrafos de precisão milimétrica",
+      "Atendimento reservado e acolhimento empático com Michele Afrodite",
     ],
     specialties: [
       {
@@ -226,10 +223,10 @@ export const STUDIO_ROOMS: StudioRoom[] = [
     ctaLabel: "Agendar Avaliação de Tricologia",
     instagramHandle: "@centrointegradomicheleafrodite",
     instagramUrl: "https://www.instagram.com/centrointegradomicheleafrodite/",
-    coverImage: "/assets/espaco/fotoespaco.jpg",
-    galleryImages: [
-      { src: "/assets/espaco/fotoespaco.jpg", label: "Consultório de Terapia Capilar" },
-      { src: "/assets/espaco/decoracoesespaco.jpg", label: "Ambiente Clínico Reservado" },
+    specs: [
+      "Tricoscopia digital de alta precisão",
+      "Ambiente clínico silencioso e reservado",
+      "Protocolos personalizados para saúde do couro cabeludo",
     ],
     specialties: [
       {
@@ -280,10 +277,10 @@ export const STUDIO_ROOMS: StudioRoom[] = [
     ctaLabel: "Agendar Sessão de Massoterapia",
     instagramHandle: "@centrointegradomicheleafrodite",
     instagramUrl: "https://www.instagram.com/centrointegradomicheleafrodite/",
-    coverImage: "/assets/espaco/mimos_brindes/brindesnatalespaco.jpg",
-    galleryImages: [
-      { src: "/assets/espaco/fotoespaco.jpg", label: "Sala Reservada de Massoterapia" },
-      { src: "/assets/espaco/mimos_brindes/brindesnatalespaco.jpg", label: "Experiência Sensorial & Acolhimento" },
+    specs: [
+      "Maca ergonômica com aquecimento sob medida",
+      "Aromaterapia e ambientação sensorial relaxante",
+      "Privacidade absoluta para tratamentos corporais",
     ],
     specialties: [
       {

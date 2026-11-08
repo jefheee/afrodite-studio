@@ -59,7 +59,7 @@ export function Services() {
                         className="w-3.5 h-3.5 text-[#C6934B] shrink-0 mt-0.5"
                         aria-hidden="true"
                       />
-                      <span className="line-clamp-1">{p.name}</span>
+                      <span>{p.name}</span>
                     </li>
                   ))}
                 </ul>

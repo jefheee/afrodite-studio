@@ -69,7 +69,7 @@ export const metadata: Metadata = {
       "Studio Michele Afrodite no Pagani, Palhoça - SC (Pme Offices Tower). 4 ambientes exclusivos: Salão de Beleza (Cabelos, Unhas, Sobrancelhas), Tricologia, Massoterapia e Tatuagem Paramédica (Reconstrução de Aréolas, Camuflagem de Cicatrizes, Micropigmentação e Fine Line).",
     images: [
       {
-        url: "/assets/espaco/decoracoesespaco.jpg",
+        url: "/logoafrodite.jpg",
         width: 1200,
         height: 630,
         alt: "Studio Michele Afrodite — Estética, Saúde e Arte Paramédica no Pagani, Palhoça/SC",
@@ -83,7 +83,7 @@ export const metadata: Metadata = {
       "Studio Michele Afrodite | Estética, Beleza, Tricologia, Massoterapia e Tatuagem Paramédica em Palhoça",
     description:
       "Studio Michele Afrodite no Pagani, Palhoça - SC (Pme Offices Tower). 4 salas especializadas em Beleza, Tricologia, Massoterapia e Tatuagem Paramédica & Fine Line.",
-    images: ["/assets/espaco/decoracoesespaco.jpg"],
+    images: ["/logoafrodite.jpg"],
   },
   robots: {
     index: true,

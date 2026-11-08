@@ -6,7 +6,10 @@
   --color-background-secondary: #F3ECE3;
   --color-background-dark: #12100E;
   --color-accent-primary: #C6934B;
-  --color-accent-secondary: #A66E4E;
+  --color-accent-secondary: #B84A39;
+  --color-accent-terracotta: #D64531;
+  --color-border-subtle: #E6DFD5;
+  --color-border-dark: #26221E;
   --color-text-primary: #1C1815;
   --color-text-muted: #6E6259;
 
@@ -95,7 +98,10 @@
   --background-secondary: #F3ECE3;
   --background-dark: #12100E;
   --accent-primary: #C6934B;
-  --accent-secondary: #A66E4E;
+  --accent-secondary: #B84A39;
+  --accent-terracotta: #D64531;
+  --border-subtle: #E6DFD5;
+  --border-dark: #26221E;
   --text-primary: #1C1815;
   --text-muted: #6E6259;
 }

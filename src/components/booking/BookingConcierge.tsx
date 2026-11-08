@@ -178,7 +178,7 @@ export function BookingBuilderCore({
                 >
                   {isDone ? <Check className="w-3.5 h-3.5" aria-hidden="true" /> : s.num}
                 </span>
-                <span className="text-xs md:text-sm truncate">{s.title}</span>
+                <span className="text-xs md:text-sm whitespace-nowrap">{s.title}</span>
               </button>
             );
           })}
@@ -575,7 +575,7 @@ export function BookingConciergeModal() {
       ref={dialogRef}
       onClick={handleBackdropClick}
       aria-label="Agendamento Inteligente Studio Michele Afrodite"
-      className="w-[95vw] max-w-3xl rounded-3xl p-0 bg-transparent border-0 shadow-2xl m-auto backdrop:bg-black/75 backdrop:backdrop-blur-md"
+      className="w-[95vw] max-w-3xl rounded-3xl p-0 bg-transparent border-0 shadow-2xl m-auto backdrop:bg-black/80"
     >
       {isOpen && (
         <BookingBuilderCore

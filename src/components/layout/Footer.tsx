@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   MapPin,
@@ -17,12 +18,12 @@ export function Footer() {
   const { openBookingModal } = useBooking();
 
   return (
-    <footer className="w-full bg-[#12100E] text-[#FAF7F2]/85 border-t border-[#C6934B]/30">
-      {/* Top Conversion Banner */}
-      <div className="border-b border-white/10 py-10 px-5 md:px-[6%] lg:px-[8%] bg-gradient-to-r from-[#12100E] via-[#1C1815] to-[#12100E]">
+    <footer className="w-full bg-[#12100E] text-[#FAF7F2]/85 border-t border-[#26221E]">
+      {/* Top Conversion Banner — Solid Flat Architecture */}
+      <div className="border-b border-[#26221E] py-10 px-5 md:px-[6%] lg:px-[8%] bg-[#181512]">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6">
           <div className="text-center lg:text-left">
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-[#C6934B] mb-1">
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#C6934B] mb-1">
               <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
               4 Salas Especializadas no Pagani, Palhoça
             </span>
@@ -38,7 +39,7 @@ export function Footer() {
                 trackCTAClick("Footer_BannerAgendar");
                 openBookingModal();
               }}
-              className="inline-flex items-center justify-center gap-2 bg-[#C6934B] hover:bg-[#d5a35a] text-[#12100E] font-label-sm text-xs uppercase tracking-widest font-bold px-7 py-4 rounded-xl transition-all shadow-lg cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 bg-[#FAF7F2] hover:bg-[#F3ECE3] text-[#1C1815] text-xs uppercase tracking-wider font-semibold h-11 px-7 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
             >
               <span>Agendar Atendimento Agora</span>
               <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -48,7 +49,7 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackCTAClick("Footer_WhatsAppDireto")}
-              className="inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/15 text-[#FAF7F2] border border-[#C6934B]/40 font-label-sm text-xs uppercase tracking-widest font-semibold px-7 py-4 rounded-xl transition-all"
+              className="inline-flex items-center justify-center gap-2 bg-transparent hover:bg-white/5 text-[#FAF7F2] border border-[#332D27] text-xs uppercase tracking-wider font-semibold h-11 px-7 rounded-xl transition-colors whitespace-nowrap"
             >
               <Phone className="w-4 h-4 text-[#C6934B]" aria-hidden="true" />
               <span>WhatsApp {STUDIO_INFO.whatsappDisplay}</span>
@@ -63,16 +64,20 @@ export function Footer() {
           {/* Col 1: Brand & Mission (4 cols) */}
           <div className="lg:col-span-4 space-y-5">
             <div className="flex items-center gap-3">
-              <div className="w-11 h-11 rounded-full bg-[#C6934B]/15 border border-[#C6934B] flex items-center justify-center">
-                <span className="font-headline-md text-xl text-[#C6934B] font-bold">
-                  MA
-                </span>
+              <div className="relative w-11 h-11 rounded-full bg-white border border-[#E6DFD5] overflow-hidden shrink-0">
+                <Image
+                  src="/logoafrodite.jpg"
+                  alt="Logo Studio Michele Afrodite"
+                  fill
+                  sizes="44px"
+                  className="object-cover"
+                />
               </div>
               <div>
-                <span className="font-headline-md text-xl text-[#FAF7F2] font-bold block leading-none">
+                <span className="font-headline-md text-xl text-[#FAF7F2] font-semibold block leading-none whitespace-nowrap">
                   Studio Michele Afrodite
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.22em] text-[#C6934B] font-semibold mt-1 block">
+                <span className="text-[10px] uppercase tracking-wider text-[#C6934B] font-semibold mt-1 block">
                   Estética • Saúde • Arte Paramédica
                 </span>
               </div>
@@ -87,7 +92,7 @@ export function Footer() {
 
             {/* Social Links */}
             <div className="space-y-2 pt-1">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#C6934B] block">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#C6934B] block">
                 Canais Digitais Oficiais
               </span>
               <div className="flex flex-col gap-2">
@@ -108,7 +113,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-xs text-[#FAF7F2]/80 hover:text-[#C6934B] transition-colors"
                 >
-                  <InstagramIcon className="w-4 h-4 text-[#A66E4E]" />
+                  <InstagramIcon className="w-4 h-4 text-[#B84A39]" />
                   <span>
                     <strong>{STUDIO_INFO.instagramIntegrated.handle}</strong> (Salão, Tricologia &amp; Masso)
                   </span>
@@ -128,7 +133,7 @@ export function Footer() {
 
           {/* Col 2: As 4 Salas Especializadas (3 cols) */}
           <div className="lg:col-span-3 space-y-4">
-            <h3 className="font-label-sm text-xs uppercase tracking-widest text-[#C6934B] font-bold">
+            <h3 className="font-label-sm text-xs uppercase tracking-wider text-[#C6934B] font-bold">
               As 4 Salas Especializadas
             </h3>
             <ul className="space-y-2.5">
@@ -149,7 +154,7 @@ export function Footer() {
 
           {/* Col 3: Navegação Rápida & Legal (2 cols) */}
           <div className="lg:col-span-2 space-y-4">
-            <h3 className="font-label-sm text-xs uppercase tracking-widest text-[#C6934B] font-bold">
+            <h3 className="font-label-sm text-xs uppercase tracking-wider text-[#C6934B] font-bold">
               Navegação
             </h3>
             <nav aria-label="Links do rodapé" className="flex flex-col gap-2.5 text-sm">
@@ -168,8 +173,8 @@ export function Footer() {
               <Link href="#avaliacoes" className="text-[#FAF7F2]/70 hover:text-[#C6934B] transition-colors">
                 Avaliações (5.0 ★)
               </Link>
-              <Link href="#faq" className="text-[#FAF7F2]/70 hover:text-[#C6934B] transition-colors">
-                Perguntas Frequentes
+              <Link href="#localizacao" className="text-[#FAF7F2]/70 hover:text-[#C6934B] transition-colors">
+                Localização
               </Link>
               <Link href="/termos-e-condicoes" className="text-xs text-[#FAF7F2]/50 hover:text-[#FAF7F2] transition-colors pt-2">
                 Termos e Condições
@@ -182,7 +187,7 @@ export function Footer() {
 
           {/* Col 4: Endereço & Horário (3 cols) */}
           <div className="lg:col-span-3 space-y-4">
-            <h3 className="font-label-sm text-xs uppercase tracking-widest text-[#C6934B] font-bold">
+            <h3 className="font-label-sm text-xs uppercase tracking-wider text-[#C6934B] font-bold">
               Localização &amp; Contato
             </h3>
 
@@ -234,7 +239,7 @@ export function Footer() {
       </div>
 
       {/* Bottom Legal Bar */}
-      <div className="border-t border-white/10 py-6 px-5 md:px-[6%] lg:px-[8%]">
+      <div className="border-t border-[#26221E] py-6 px-5 md:px-[6%] lg:px-[8%]">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3 text-center sm:text-left">
           <p className="text-xs text-[#FAF7F2]/50">
             © {new Date().getFullYear()} <strong>Studio Michele Afrodite</strong>.

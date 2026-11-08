@@ -9,9 +9,11 @@ import {
   ArrowRight,
   CheckCircle2,
   Award,
+  Feather,
+  Layers,
+  HeartPulse,
 } from "lucide-react";
 import { InstagramIcon } from "@/components/ui/SocialIcons";
-import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -33,16 +35,16 @@ export function ParamedicalSpotlight() {
 
       gsap.fromTo(
         ".paramedica-reveal",
-        { opacity: 0, y: 36 },
+        { opacity: 0, y: 30 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.85,
-          stagger: 0.15,
+          duration: 0.8,
+          stagger: 0.12,
           ease: "power3.out",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 78%",
+            start: "top 80%",
           },
         }
       );
@@ -63,20 +65,14 @@ export function ParamedicalSpotlight() {
       id="paramedica"
       ref={sectionRef}
       aria-labelledby="paramedica-heading"
-      className="relative py-20 md:py-28 px-5 md:px-[6%] lg:px-[8%] bg-[#12100E] text-[#FAF7F2] overflow-hidden border-y border-[#C6934B]/30"
+      className="relative py-20 md:py-28 px-5 md:px-[6%] lg:px-[8%] bg-[#12100E] text-[#FAF7F2] border-y border-[#26221E]"
     >
-      {/* Ambient Gold Luxury Radial Glow */}
-      <div
-        className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[780px] h-[380px] rounded-full bg-[#C6934B]/12 blur-[140px]"
-        aria-hidden="true"
-      />
-
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="paramedica-reveal text-center max-w-3xl mx-auto mb-14 md:mb-20">
-          <div className="inline-flex items-center gap-2 bg-[#C6934B]/15 border border-[#C6934B]/40 rounded-full px-4 py-1.5 mb-4">
+          <div className="inline-flex items-center gap-2 bg-[#1C1815] border border-[#26221E] rounded-full px-4 py-1.5 mb-4">
             <Award className="w-4 h-4 text-[#C6934B]" aria-hidden="true" />
-            <span className="font-label-sm text-[11px] uppercase tracking-[0.22em] text-[#C6934B] font-bold">
+            <span className="text-[11px] uppercase tracking-wider text-[#C6934B] font-semibold">
               Destaque Autoral • Sala 02 Privativa
             </span>
           </div>
@@ -99,23 +95,28 @@ export function ParamedicalSpotlight() {
           </p>
         </div>
 
-        {/* Two Signature Blocks */}
+        {/* Two Technical Editorial Cards (Solid Flat Architecture) */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 mb-14">
-          {/* Bloco 1: Reconstrução de Aréolas & Camuflagem de Cicatrizes */}
-          <div className="paramedica-reveal bg-white/[0.04] backdrop-blur-md border border-[#C6934B]/30 rounded-3xl p-7 sm:p-9 flex flex-col justify-between hover:border-[#C6934B]/60 transition-colors">
+          {/* Card 01: Reconstrução de Aréolas & Camuflagem */}
+          <div className="paramedica-reveal bg-[#181512] border border-[#26221E] rounded-3xl p-7 sm:p-9 flex flex-col justify-between">
             <div>
-              <div className="flex items-center justify-between gap-4 mb-6">
-                <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-[#C6934B]">
-                  <HeartHandshake className="w-4 h-4" aria-hidden="true" />
-                  Bloco 01 • Restauração &amp; Autoestima
-                </span>
-                <span className="text-[11px] uppercase tracking-wider bg-[#C6934B]/20 text-[#C6934B] px-3 py-1 rounded-full font-semibold">
+              <div className="flex items-center justify-between gap-4 mb-6 pb-4 border-b border-[#26221E]">
+                <div className="flex items-center gap-3">
+                  <span className="font-headline-xl text-2xl font-bold text-[#C6934B]">
+                    01
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#FAF7F2]">
+                    <HeartHandshake className="w-4 h-4 text-[#C6934B]" aria-hidden="true" />
+                    Restauração &amp; Autoestima
+                  </span>
+                </div>
+                <span className="text-[11px] uppercase tracking-wider bg-white/5 border border-[#26221E] text-[#C6934B] px-3 py-1 rounded-full font-semibold whitespace-nowrap">
                   Dermopigmentação Clínica
                 </span>
               </div>
 
               <h3 className="font-headline-lg text-2xl sm:text-3xl text-[#FAF7F2] mb-4 leading-snug">
-                Reconstrução de Aréolas Mamárias &amp; Camuflagem de Cicatrizes
+                Reconstrução de Aréolas Mamárias 3D &amp; Camuflagem de Cicatrizes
               </h3>
 
               <p className="text-sm sm:text-base text-[#FAF7F2]/75 leading-relaxed mb-6">
@@ -124,16 +125,40 @@ export function ParamedicalSpotlight() {
                 <strong className="text-[#C6934B]">
                   realismo 3D (luz, sombra, textura e colorimetria avançada)
                 </strong>
-                , devolvemos a naturalidade após mastectomias, reconstruções
-                mamárias ou cirurgias plásticas.
+                , devolvemos a naturalidade após mastectomias, cirurgias mamárias ou plásticas.
               </p>
+
+              {/* Technical Specifications */}
+              <div className="bg-[#12100E] border border-[#26221E] rounded-2xl p-4 sm:p-5 mb-6 space-y-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#C6934B] block mb-1">
+                  Especificações do Protocolo Paramédico:
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[#FAF7F2]/80">
+                  <div className="flex items-center gap-2">
+                    <HeartPulse className="w-3.5 h-3.5 text-[#C6934B] shrink-0" />
+                    <span>Pigmentos hospitalares estéreis</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Layers className="w-3.5 h-3.5 text-[#C6934B] shrink-0" />
+                    <span>Estudo fototipo &amp; colorimetria</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#C6934B] shrink-0" />
+                    <span>Biossegurança hospitalar</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-3.5 h-3.5 text-[#C6934B] shrink-0" />
+                    <span>Sala 02 privativa individual</span>
+                  </div>
+                </div>
+              </div>
 
               <ul className="space-y-3 mb-8">
                 {[
-                  "Reconstrução de Aréolas 3D pós-mastectomia ou cirurgias mamárias com efeito hiper-realista de relevo e cor.",
-                  "Camuflagem paramédica de cicatrizes cirúrgicas (mamoplastia, abdominoplastia, lifting e cesárea).",
-                  "Suavização de cicatrizes acidentais e camuflagem avançada de estrias.",
-                  "Atendimento 100% reservado, acolhedor e com rigorosa biossegurança na Sala 02.",
+                  "Reconstrução de Aréolas 3D pós-mastectomia com efeito realista de relevo, papila e cor.",
+                  "Camuflagem de cicatrizes cirúrgicas de mamoplastia, abdominoplastia e cesárea.",
+                  "Suavização óptica de cicatrizes acidentais e camuflagem avançada de estrias.",
+                  "Avaliação individual, acolhedora e 100% reservada com Michele Afrodite.",
                 ].map((item, i) => (
                   <li
                     key={i}
@@ -149,7 +174,7 @@ export function ParamedicalSpotlight() {
               </ul>
             </div>
 
-            <div className="pt-5 border-t border-white/10 flex flex-col sm:flex-row gap-3">
+            <div className="pt-6 border-t border-[#26221E] flex flex-col sm:flex-row gap-3">
               <button
                 type="button"
                 onClick={() =>
@@ -157,23 +182,38 @@ export function ParamedicalSpotlight() {
                     "Reconstrução de Aréola Mamária 3D (Paramédica)"
                   )
                 }
-                className="flex-1 inline-flex items-center justify-center gap-2 bg-[#C6934B] hover:bg-[#d4a259] text-[#12100E] font-label-sm text-xs uppercase tracking-widest font-bold py-4 px-5 rounded-xl transition-all cursor-pointer"
+                className="h-12 px-6 flex-1 inline-flex items-center justify-center gap-2 bg-[#C6934B] hover:bg-[#d4a259] text-[#12100E] text-xs uppercase tracking-wider font-semibold rounded-xl transition-colors cursor-pointer whitespace-nowrap"
               >
                 <ShieldCheck className="w-4 h-4" aria-hidden="true" />
-                Agendar Avaliação Paramédica
+                <span>Agendar Avaliação Paramédica</span>
               </button>
+
+              <a
+                href={STUDIO_INFO.instagramParamedical.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-12 px-5 inline-flex items-center justify-center gap-2 bg-transparent hover:bg-white/5 text-[#FAF7F2] border border-[#332D27] text-xs font-semibold rounded-xl transition-colors whitespace-nowrap"
+              >
+                <InstagramIcon className="w-4 h-4 text-[#C6934B]" />
+                <span>Ver casos reais</span>
+              </a>
             </div>
           </div>
 
-          {/* Bloco 2: Micropigmentação & Tatuagem Fine Line */}
-          <div className="paramedica-reveal bg-white/[0.04] backdrop-blur-md border border-[#A66E4E]/40 rounded-3xl p-7 sm:p-9 flex flex-col justify-between hover:border-[#C6934B]/60 transition-colors">
+          {/* Card 02: Micropigmentação & Tattoo Fine Line */}
+          <div className="paramedica-reveal bg-[#181512] border border-[#26221E] rounded-3xl p-7 sm:p-9 flex flex-col justify-between">
             <div>
-              <div className="flex items-center justify-between gap-4 mb-6">
-                <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-[#C6934B]">
-                  <Sparkles className="w-4 h-4" aria-hidden="true" />
-                  Bloco 02 • Precisão &amp; Delicadeza
-                </span>
-                <span className="text-[11px] uppercase tracking-wider bg-[#A66E4E]/25 text-[#FAF7F2] px-3 py-1 rounded-full font-semibold">
+              <div className="flex items-center justify-between gap-4 mb-6 pb-4 border-b border-[#26221E]">
+                <div className="flex items-center gap-3">
+                  <span className="font-headline-xl text-2xl font-bold text-[#C6934B]">
+                    02
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#FAF7F2]">
+                    <Feather className="w-4 h-4 text-[#C6934B]" aria-hidden="true" />
+                    Precisão &amp; Delicadeza
+                  </span>
+                </div>
+                <span className="text-[11px] uppercase tracking-wider bg-white/5 border border-[#26221E] text-[#FAF7F2] px-3 py-1 rounded-full font-semibold whitespace-nowrap">
                   Traço Fino Autoral
                 </span>
               </div>
@@ -186,46 +226,41 @@ export function ParamedicalSpotlight() {
                 A mesma mão leve e precisão milimétrica da arte paramédica
                 aplicada à beleza facial e às tatuagens artísticas em{" "}
                 <strong className="text-[#C6934B]">traço fino (Fine Line)</strong>
-                . Criamos projetos exclusivos, minimalistas e elegantes que
-                respeitam a anatomia e a identidade de cada cliente.
+                . Projetos exclusivos, minimalistas e elegantes desenvolvidos
+                sob medida com conforto e máxima higiene.
               </p>
 
-              <div className="grid grid-cols-2 gap-3 mb-6">
-                <div className="relative h-36 rounded-2xl overflow-hidden border border-white/10">
-                  <Image
-                    src="/assets/modelos_clientes/micropigmentacao_fio_a_fio/micropigmentacao_fio_a_fio (1).jpeg"
-                    alt="Micropigmentação de Sobrancelhas Fio a Fio realista no Studio Michele Afrodite"
-                    fill
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3">
-                    <span className="text-[11px] font-semibold text-white">
-                      Sobrancelhas Realistas
-                    </span>
+              {/* Technical Specifications */}
+              <div className="bg-[#12100E] border border-[#26221E] rounded-2xl p-4 sm:p-5 mb-6 space-y-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#C6934B] block mb-1">
+                  Especificações Artísticas &amp; Estéticas:
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[#FAF7F2]/80">
+                  <div className="flex items-center gap-2">
+                    <Feather className="w-3.5 h-3.5 text-[#C6934B] shrink-0" />
+                    <span>Traços de 0,15mm a 0,25mm</span>
                   </div>
-                </div>
-                <div className="relative h-36 rounded-2xl overflow-hidden border border-white/10">
-                  <Image
-                    src="/assets/modelos_clientes/micropigmentacao_labial/micropigmentacao_labial_depois.jpeg"
-                    alt="Revitalização e Micropigmentação Labial natural no Studio Michele Afrodite"
-                    fill
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3">
-                    <span className="text-[11px] font-semibold text-white">
-                      Revitalização Labial
-                    </span>
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-3.5 h-3.5 text-[#C6934B] shrink-0" />
+                    <span>Pigmentos veganos de alta fixação</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Layers className="w-3.5 h-3.5 text-[#C6934B] shrink-0" />
+                    <span>Desenhos botânicos autorais</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#C6934B] shrink-0" />
+                    <span>Agulhas descartáveis lacradas</span>
                   </div>
                 </div>
               </div>
 
-              <ul className="space-y-2.5 mb-8">
+              <ul className="space-y-3 mb-8">
                 {[
-                  "Tatuagem Artística Fine Line: florais, botânicos, escritas finas, símbolos e artes minimalistas sob medida.",
-                  "Micropigmentação de Sobrancelhas Hiper-realistas com caimento natural dos fios.",
+                  "Tatuagem Artística Fine Line: florais, botânicos, escritas delicadas e mini tattoos autorais.",
+                  "Micropigmentação de Sobrancelhas Hiper-realista com caimento e direção natural dos fios.",
                   "Revitalização Labial para devolver cor saudável, definição suave e viço aos lábios.",
+                  "Projetos exclusivos desenvolvidos com estudo de simetria anatômica individual.",
                 ].map((item, i) => (
                   <li
                     key={i}
@@ -241,7 +276,7 @@ export function ParamedicalSpotlight() {
               </ul>
             </div>
 
-            <div className="pt-5 border-t border-white/10 flex flex-col sm:flex-row gap-3">
+            <div className="pt-6 border-t border-[#26221E] flex flex-col sm:flex-row gap-3">
               <button
                 type="button"
                 onClick={() =>
@@ -249,22 +284,32 @@ export function ParamedicalSpotlight() {
                     "Tatuagem Artística Fine Line (Orçamento Autoral)"
                   )
                 }
-                className="flex-1 inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-[#C6934B] text-[#FAF7F2] hover:text-[#12100E] border border-[#C6934B]/40 font-label-sm text-xs uppercase tracking-widest font-bold py-4 px-5 rounded-xl transition-all cursor-pointer"
+                className="h-12 px-6 flex-1 inline-flex items-center justify-center gap-2 bg-[#C6934B] hover:bg-[#d4a259] text-[#12100E] text-xs uppercase tracking-wider font-semibold rounded-xl transition-colors cursor-pointer whitespace-nowrap"
               >
-                Orçar Tattoo Fine Line / Micro
+                <span>Orçar Tattoo Fine Line / Micro</span>
               </button>
+
+              <a
+                href={STUDIO_INFO.instagramParamedical.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-12 px-5 inline-flex items-center justify-center gap-2 bg-transparent hover:bg-white/5 text-[#FAF7F2] border border-[#332D27] text-xs font-semibold rounded-xl transition-colors whitespace-nowrap"
+              >
+                <InstagramIcon className="w-4 h-4 text-[#C6934B]" />
+                <span>Ver galeria</span>
+              </a>
             </div>
           </div>
         </div>
 
-        {/* Bottom Callout Bar: WhatsApp Evaluation + @studiomicheleafrodite */}
-        <div className="paramedica-reveal bg-gradient-to-r from-[#1C1815] via-[#241E19] to-[#1C1815] border border-[#C6934B]/40 rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col lg:flex-row items-center justify-between gap-6">
+        {/* Bottom Callout Bar: Solid Architecture */}
+        <div className="paramedica-reveal bg-[#181512] border border-[#26221E] rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col lg:flex-row items-center justify-between gap-6">
           <div className="text-center lg:text-left max-w-2xl">
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#C6934B] block mb-1.5">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#C6934B] block mb-1.5">
               Atendimento Individualizado com Michele Afrodite
             </span>
             <h3 className="font-headline-md text-2xl sm:text-3xl text-[#FAF7F2] mb-2">
-              Deseja conversar sobre o seu caso com total descrição?
+              Deseja conversar sobre o seu caso com total discrição?
             </h3>
             <p className="text-sm text-[#FAF7F2]/70">
               Agende uma avaliação personalizada via WhatsApp ou acompanhe
@@ -273,11 +318,11 @@ export function ParamedicalSpotlight() {
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full lg:w-auto shrink-0">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto shrink-0">
             <button
               type="button"
               onClick={() => handleOpenParamedicalBooking()}
-              className="inline-flex items-center justify-center gap-2.5 bg-[#C6934B] hover:bg-[#d6a35a] text-[#12100E] font-label-sm text-xs uppercase tracking-widest font-bold px-7 py-4 rounded-2xl shadow-lg transition-all cursor-pointer min-h-[52px]"
+              className="h-12 px-7 inline-flex items-center justify-center gap-2.5 bg-[#FAF7F2] hover:bg-[#F3ECE3] text-[#1C1815] text-xs uppercase tracking-wider font-semibold rounded-2xl transition-colors cursor-pointer whitespace-nowrap"
             >
               <WhatsAppIcon className="w-4 h-4" />
               <span>Agendar Avaliação no WhatsApp</span>
@@ -289,10 +334,10 @@ export function ParamedicalSpotlight() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackCTAClick("Paramedica_InstagramLink")}
-              className="inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/15 text-[#FAF7F2] border border-[#C6934B]/40 font-label-sm text-xs uppercase tracking-widest font-semibold px-6 py-4 rounded-2xl transition-all min-h-[52px]"
+              className="h-12 px-6 inline-flex items-center justify-center gap-2 bg-transparent hover:bg-white/5 text-[#FAF7F2] border border-[#332D27] text-xs uppercase tracking-wider font-semibold rounded-2xl transition-colors whitespace-nowrap"
             >
               <InstagramIcon className="w-4 h-4 text-[#C6934B]" />
-              <span>Explorar {STUDIO_INFO.instagramParamedical.handle}</span>
+              <span>{STUDIO_INFO.instagramParamedical.handle}</span>
             </a>
           </div>
         </div>
