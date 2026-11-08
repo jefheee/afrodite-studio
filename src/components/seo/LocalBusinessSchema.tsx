@@ -3,28 +3,63 @@ import Script from "next/script";
 export function LocalBusinessSchema() {
   const schemaData = {
     "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "BeautySalon"],
-    "name": "Ana Machado Estética Facial",
-    "image": "https://www.anamachadoestetica.com.br/assets/hero-branca.jpg",
-    "url": "https://www.anamachadoestetica.com.br/",
-    "telephone": "+5548992054803",
-    "priceRange": "$$ - $$$",
-    "address": {
+    "@type": ["HealthAndBeautyBusiness", "BeautySalon"],
+    name: "Studio Michele Afrodite",
+    alternateName: "Centro Integrado Michele Afrodite",
+    description:
+      "Studio Michele Afrodite no Pagani, Palhoça - SC (Pme Offices Tower). 4 ambientes exclusivos: Salão de Beleza (Cabelos, Unhas, Sobrancelhas), Tricologia, Massoterapia e Tatuagem Paramédica (Reconstrução de Aréolas, Camuflagem de Cicatrizes, Micropigmentação e Fine Line).",
+    url: "https://studiomicheleafrodite.com.br",
+    telephone: "+55-48-98411-1686",
+    priceRange: "$$",
+    currenciesAccepted: "BRL",
+    paymentAccepted: "PIX, Cartão de Crédito, Cartão de Débito, Dinheiro",
+    image: "https://studiomicheleafrodite.com.br/assets/espaco/decoracoesespaco.jpg",
+    address: {
       "@type": "PostalAddress",
-      "streetAddress": "Rua Machado de Assis, 995, Jardim Eldorado",
-      "addressLocality": "Palhoça",
-      "addressRegion": "SC",
-      "postalCode": "88133-380",
-      "addressCountry": "BR"
+      streetAddress: "Rua Joci José Martins, 247, Pme Offices Tower, Pagani",
+      addressLocality: "Palhoça",
+      addressRegion: "SC",
+      postalCode: "88132-148",
+      addressCountry: "BR",
     },
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      "opens": "09:30",
-      "closes": "18:30"
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: -27.6431,
+      longitude: -48.6695,
     },
-    "description": "Extensão de cílios, design de sobrancelhas, micropigmentação e mentoria VIP presencial em Palhoça/SC.",
-    "appointmentRequired": true
+    openingHours: "Tu-Sa 09:00-20:00",
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ],
+        opens: "09:00",
+        closes: "20:00",
+      },
+    ],
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "5.0",
+      bestRating: "5",
+      worstRating: "1",
+      ratingCount: "11",
+      reviewCount: "11",
+    },
+    founder: {
+      "@type": "Person",
+      name: "Michele Afrodite",
+      jobTitle: "Artista Paramédica, Micropigmentadora e Tatuadora Fine Line",
+    },
+    sameAs: [
+      "https://www.instagram.com/studiomicheleafrodite/",
+      "https://www.instagram.com/centrointegradomicheleafrodite/",
+      "https://www.facebook.com/Centrodebelezaafrodite/",
+    ],
   };
 
   return (

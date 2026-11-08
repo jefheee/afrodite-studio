@@ -1,277 +1,278 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { ArrowRight, Sparkles, Star } from "lucide-react";
-import Link from "next/link";
+import { useRef } from "react";
+import { useReducedMotion } from "framer-motion";
+import {
+  ArrowRight,
+  MapPin,
+  Star,
+  Sparkles,
+  Clock,
+  ShieldCheck,
+  Building2,
+} from "lucide-react";
+import { InstagramIcon } from "@/components/ui/SocialIcons";
 import Image from "next/image";
+import Link from "next/link";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { STUDIO_INFO } from "@/data/studioData";
+import { useBooking } from "@/context/BookingContext";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 import { trackCTAClick } from "@/utils/analytics";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Custom Aperture Reveal Component
-function ApertureReveal({ isLoaded }: { isLoaded: boolean }) {
-  const overlayRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(true);
-
-  useGSAP(() => {
-    if (isLoaded && overlayRef.current) {
-      // Removido o 'document.body.style.overflow = "hidden"' para evitar Layout Shift (Barra de scroll sumindo)
-      
-      gsap.to(overlayRef.current, {
-        width: "300vmax",
-        height: "300vmax",
-        duration: 1.5,
-        ease: "power2.inOut",
-        delay: 0.1,
-        onComplete: () => {
-          setIsVisible(false);
-        }
-      });
-    }
-  }, [isLoaded]);
-
-  if (!isVisible) return null;
-
-  return (
-    <div 
-      ref={overlayRef}
-      className="fixed z-[999] pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-transparent rounded-full"
-      style={{ 
-        border: "150vmax solid white",
-        width: "0px",
-        height: "0px"
-      }}
-    />
-  );
-}
-
-const HERO_STATS = [
-  { value: "2.000+", label: "Atendimentos" },
-  { value: "3+", label: "Anos" },
-  { value: "100%", label: "Presencial" },
+const TRUST_BAR_ITEMS = [
+  {
+    icon: Building2,
+    label: "4 Salas Especializadas",
+    sub: "Estrutura multidisciplinar",
+  },
+  {
+    icon: Clock,
+    label: "Terça a Sábado (09h às 20h)",
+    sub: "Horário estendido no Pagani",
+  },
+  {
+    icon: ShieldCheck,
+    label: "Referência em Tatuagem Paramédica & Fine Line",
+    sub: "Comandado por Michele Afrodite",
+  },
+  {
+    icon: Star,
+    label: "Avaliação 5.0 ★ Google",
+    sub: "100% de aprovação verificada",
+  },
 ];
 
 export function Hero() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
+  const { openBookingModal } = useBooking();
 
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoaded(true), 300);
-    return () => clearTimeout(timer);
-  }, []);
+  useGSAP(
+    () => {
+      if (!sectionRef.current || prefersReducedMotion) return;
 
-  useGSAP(() => {
-    if (!containerRef.current || prefersReducedMotion) return;
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-    // matchMedia: only run the heavy ScrollTrigger pin on desktop (≥768px)
-    const mm = gsap.matchMedia();
+      tl.fromTo(
+        ".hero-stagger",
+        { opacity: 0, y: 28 },
+        { opacity: 1, y: 0, duration: 0.85, stagger: 0.12 }
+      ).fromTo(
+        ".hero-visual-card",
+        { opacity: 0, scale: 0.96, clipPath: "inset(8% 8% 8% 8% round 24px)" },
+        {
+          opacity: 1,
+          scale: 1,
+          clipPath: "inset(0% 0% 0% 0% round 24px)",
+          duration: 1.1,
+          ease: "power2.out",
+        },
+        "-=0.6"
+      );
 
-    mm.add("(min-width: 768px)", () => {
-      const tl = gsap.timeline({
+      gsap.to(".hero-parallax-img", {
+        yPercent: 8,
+        ease: "none",
         scrollTrigger: {
-          trigger: containerRef.current,
+          trigger: sectionRef.current,
           start: "top top",
-          end: "+=100%",
-          pin: true,
-          scrub: 1,
+          end: "bottom top",
+          scrub: true,
         },
       });
+    },
+    { scope: sectionRef, dependencies: [prefersReducedMotion] }
+  );
 
-      tl.to(
-        ".hero-bg-image",
-        { scale: 1.3, duration: 1, ease: "none" },
-        0
-      )
-        .to(
-          ".hero-overlay",
-          { opacity: 1, duration: 1, ease: "none" },
-          0
-        )
-        .to(
-          ".hero-main-content",
-          { opacity: 0, y: -80, duration: 1, ease: "power1.in" },
-          0
-        );
-
-      // Return cleanup for this matchMedia context
-      return () => {
-        tl.kill();
-      };
-    });
-
-    // Mobile: no pin, no scroll animations — saves battery & CPU
-    mm.add("(max-width: 767px)", () => {
-      // Noop — hero is static on mobile
-    });
-
-    // Cleanup: matchMedia.revert() kills all ScrollTriggers + tweens
-    return () => {
-      mm.revert();
-    };
-  }, { scope: containerRef, dependencies: [prefersReducedMotion] });
-
-  // Entrance animations respect prefers-reduced-motion
-  const entranceTransition = prefersReducedMotion
-    ? { duration: 0 }
-    : undefined;
+  const handlePrimaryCTA = () => {
+    trackCTAClick("Hero_AgendarAtendimentoPersonalizado");
+    openBookingModal();
+  };
 
   return (
     <section
       id="inicio"
-      ref={containerRef}
-      className="relative w-full h-[100svh] flex items-center overflow-hidden bg-white"
-      aria-label="Seção principal — Ana Machado Estética Facial"
+      ref={sectionRef}
+      aria-label="Apresentação Studio Michele Afrodite"
+      className="relative w-full pt-28 pb-14 md:pt-32 md:pb-20 lg:pt-36 lg:pb-24 px-5 md:px-[6%] lg:px-[8%] bg-[#FAF7F2] overflow-hidden border-b border-[#C6934B]/20"
     >
-      <ApertureReveal isLoaded={isLoaded} />
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <Image
-          alt="Ana Machado - Lash Designer"
-          className="hero-bg-image object-cover object-top md:object-center w-full h-full will-change-transform"
-          src="/assets/hero-branca.jpg"
-          fill
-          priority
-          fetchPriority="high"
-          sizes="100vw"
-        />
-        {/* Overlay that darkens on scroll */}
-        <div className="hero-overlay absolute inset-0 bg-black/60 opacity-0 will-change-[opacity]"></div>
-        {/* Static overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/40 to-transparent md:from-white/90 md:via-white/50"></div>
-      </div>
+      {/* Subtle Luxury Ambient Glows */}
+      <div
+        className="pointer-events-none absolute -top-40 right-0 w-[520px] h-[520px] rounded-full bg-[#C6934B]/12 blur-[120px]"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute bottom-0 -left-40 w-[440px] h-[440px] rounded-full bg-[#A66E4E]/10 blur-[110px]"
+        aria-hidden="true"
+      />
 
-      {/* Main Content with entrance animation */}
-      <div className="hero-main-content relative z-10 w-full px-5 md:px-[8%] will-change-transform">
-        <div className="max-w-2xl">
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          {/* Left Column: Editorial Copy & CTAs */}
+          <div className="lg:col-span-7 space-y-6">
+            {/* Superior Badge */}
+            <div className="hero-stagger inline-flex flex-wrap items-center gap-2 bg-[#F3ECE3] border border-[#C6934B]/40 rounded-full px-4 py-2 shadow-2xs">
+              <span className="text-xs font-bold uppercase tracking-[0.14em] text-[#1C1815] flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-[#C6934B] shrink-0" aria-hidden="true" />
+                📍 PME OFFICES TOWER • PAGANI, PALHOÇA
+              </span>
+              <span className="text-[#C6934B] font-bold" aria-hidden="true">
+                |
+              </span>
+              <span className="text-xs font-bold uppercase tracking-[0.14em] text-[#A66E4E] flex items-center gap-1">
+                ★ 5.0 NO GOOGLE
+              </span>
+            </div>
 
-          {/* Badge */}
-          <AnimatePresence>
-            {isLoaded && (
-              <motion.div
-                initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={entranceTransition ?? { duration: 0.6, delay: 0.2 }}
-                className="inline-flex items-center gap-2 bg-secondary/10 border border-secondary/20 rounded-full px-4 py-2 mb-5"
+            {/* Main Headline */}
+            <h1 className="hero-stagger font-headline-xl text-3xl sm:text-4xl md:text-5xl lg:text-[52px] text-[#1C1815] leading-[1.1] tracking-tight">
+              Studio Michele Afrodite:{" "}
+              <span className="italic font-normal text-[#A66E4E]">
+                Onde a excelência estética, a saúde e a arte paramédica se encontram.
+              </span>
+            </h1>
+
+            {/* Subheadline */}
+            <p className="hero-stagger font-body-lg text-base sm:text-lg text-[#6E6259] max-w-2xl leading-relaxed">
+              Um espaço moderno e completo dividido em{" "}
+              <strong className="text-[#1C1815] font-semibold">
+                4 salas exclusivas
+              </strong>
+              : do salão principal de cabelos, unhas e sobrancelhas às salas
+              especializadas em Tricologia, Massoterapia e Tatuagem Paramédica
+              &amp; Fine Line.
+            </p>
+
+            {/* Dual CTA Group */}
+            <div className="hero-stagger flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
+              <button
+                type="button"
+                onClick={handlePrimaryCTA}
+                className="inline-flex items-center justify-center gap-2.5 bg-[#12100E] hover:bg-[#C6934B] text-[#FAF7F2] hover:text-[#12100E] border border-[#C6934B] font-label-sm text-xs md:text-sm px-7 py-4 rounded-2xl uppercase tracking-widest font-bold shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer min-h-[54px]"
               >
-                <Sparkles className="w-4 h-4 text-secondary" />
-                <span className="font-label-sm text-xs uppercase tracking-widest text-secondary font-semibold">
-                  Estética Facial &amp; Mentoria VIP
+                <WhatsAppIcon className="w-5 h-5 text-[#C6934B] group-hover:text-[#12100E] transition-colors shrink-0" />
+                <span>Agendar Atendimento Personalizado</span>
+                <ArrowRight
+                  className="w-4 h-4 group-hover:translate-x-1 transition-transform shrink-0"
+                  aria-hidden="true"
+                />
+              </button>
+
+              <Link
+                href="#salas"
+                onClick={() => trackCTAClick("Hero_ConhecerAs4Salas")}
+                className="inline-flex items-center justify-center gap-2 bg-[#F3ECE3] hover:bg-[#1C1815] text-[#1C1815] hover:text-[#FAF7F2] border border-[#C6934B]/40 font-label-sm text-xs md:text-sm px-7 py-4 rounded-2xl uppercase tracking-widest font-semibold transition-all duration-300 min-h-[54px]"
+              >
+                <span>Conhecer as 4 Salas</span>
+              </Link>
+            </div>
+
+            {/* Quick Dual Instagram Strip */}
+            <div className="hero-stagger pt-2 flex flex-wrap items-center gap-4 text-xs text-[#6E6259]">
+              <span className="uppercase tracking-widest text-[10px] font-bold text-[#1C1815]">
+                Portfólios Oficiais (+970 publicações):
+              </span>
+              <a
+                href={STUDIO_INFO.instagramParamedical.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 font-semibold text-[#1C1815] hover:text-[#C6934B] underline underline-offset-4 decoration-[#C6934B]/60 transition-colors"
+              >
+                <InstagramIcon className="w-3.5 h-3.5 text-[#C6934B]" />
+                {STUDIO_INFO.instagramParamedical.handle}
+              </a>
+              <a
+                href={STUDIO_INFO.instagramIntegrated.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 font-semibold text-[#1C1815] hover:text-[#A66E4E] underline underline-offset-4 decoration-[#A66E4E]/60 transition-colors"
+              >
+                <InstagramIcon className="w-3.5 h-3.5 text-[#A66E4E]" />
+                {STUDIO_INFO.instagramIntegrated.handle}
+              </a>
+            </div>
+          </div>
+
+          {/* Right Column: Quiet Luxury Bento Showcase */}
+          <div className="lg:col-span-5">
+            <div className="hero-visual-card relative rounded-3xl overflow-hidden border border-[#C6934B]/35 bg-[#12100E] shadow-2xl aspect-[4/5] sm:aspect-[5/5] lg:aspect-[4/5]">
+              <Image
+                src="/assets/espaco/decoracoesespaco.jpg"
+                alt="Ambiente interno sofisticado do Studio Michele Afrodite no edifício Pme Offices Tower em Palhoça"
+                fill
+                priority
+                fetchPriority="high"
+                sizes="(max-width: 1024px) 100vw, 42vw"
+                className="hero-parallax-img object-cover object-center scale-105 opacity-85"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#12100E] via-[#12100E]/35 to-transparent" />
+
+              {/* Top Floating Tag */}
+              <div className="absolute top-5 left-5 right-5 flex justify-between items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 bg-[#12100E]/85 backdrop-blur-md border border-[#C6934B]/40 text-[#FAF7F2] text-[11px] font-semibold uppercase tracking-widest px-3.5 py-1.5 rounded-full">
+                  <Sparkles className="w-3.5 h-3.5 text-[#C6934B]" aria-hidden="true" />
+                  Quiet Luxury Boutique Studio
                 </span>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                <span className="bg-[#C6934B] text-[#12100E] text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full shadow-md">
+                  5.0 ★ Google
+                </span>
+              </div>
 
-          {/* Heading */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={isLoaded ? { opacity: 1, y: 0 } : {}}
-            transition={entranceTransition ?? { duration: 0.8, delay: 0.4 }}
-            className="font-headline-xl text-3xl sm:text-4xl md:text-headline-xl text-neutral-900 mb-3 md:mb-4 leading-[1.15] md:leading-[1.1]"
-          >
-            Transforme seu olhar.
-            <br />
-            <span className="text-secondary">Transforme sua carreira.</span>
-          </motion.h1>
-
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={isLoaded ? { opacity: 1, y: 0 } : {}}
-            transition={entranceTransition ?? { duration: 0.7, delay: 0.6 }}
-            className="font-body-lg text-body-lg text-neutral-600 mb-8 max-w-xl leading-relaxed"
-          >
-            Cílios impecáveis, sobrancelhas de grife e uma mentoria que forma profissionais de elite. Palhoça/SC.
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isLoaded ? { opacity: 1, y: 0 } : {}}
-            transition={entranceTransition ?? { duration: 0.7, delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-6"
-          >
-            <Link
-              href="https://wa.me/5548992054803?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio."
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackCTAClick('Hero_AgendarHorario')}
-              className="w-full sm:w-auto max-w-[280px] sm:max-w-none inline-flex items-center justify-center bg-secondary text-white font-label-sm text-xs md:text-sm px-6 py-3.5 md:py-4 rounded-xl md:rounded-2xl uppercase tracking-widest hover:brightness-110 transition-all group shadow-lg hover:shadow-xl hover:-translate-y-0.5 duration-300 min-h-[44px]"
-            >
-              <WhatsAppIcon className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-              Agendar Horário
-              <ArrowRight className="w-4 h-4 md:w-5 md:h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link
-              href="#mentoria"
-              className="w-full sm:w-auto max-w-[280px] sm:max-w-none inline-flex items-center justify-center bg-white/60 backdrop-blur-md border border-neutral-200/50 text-neutral-900 font-label-sm text-xs md:text-sm px-6 py-3.5 md:py-4 rounded-xl md:rounded-2xl uppercase tracking-widest hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-all duration-300 min-h-[44px]"
-            >
-              Conhecer a Mentoria
-            </Link>
-          </motion.div>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={isLoaded ? { opacity: 1 } : {}}
-            transition={entranceTransition ?? { duration: 0.6, delay: 0.9 }}
-            className="text-xs text-neutral-400 -mt-4 mb-8"
-          >
-            Você será redirecionada para o WhatsApp
-          </motion.p>
-
-          {/* Stats Row + Trust Badge inline */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={isLoaded ? { opacity: 1 } : {}}
-            transition={entranceTransition ?? { duration: 0.8, delay: 1.0 }}
-            className="flex flex-wrap items-center gap-6 md:gap-8"
-          >
-            {HERO_STATS.map((stat, idx) => (
-              <div key={idx} className="flex items-center gap-2 md:gap-3">
-                {idx > 0 && <div className="w-px h-8 md:h-10 bg-neutral-300 -ml-2 md:-ml-3 mr-0"></div>}
-                <div>
-                  <span className="font-headline-md text-xl md:text-3xl text-neutral-900 font-bold block leading-none md:leading-none mb-0.5">{stat.value}</span>
-                  <span className="font-label-sm text-[9px] md:text-[10px] text-neutral-500 uppercase tracking-widest leading-none">{stat.label}</span>
+              {/* Bottom Architectural Summary Card */}
+              <div className="absolute bottom-5 left-5 right-5 bg-[#12100E]/90 backdrop-blur-xl border border-[#C6934B]/30 rounded-2xl p-5 text-[#FAF7F2]">
+                <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#C6934B] block mb-1">
+                  Arquitetura Multidisciplinar • 4 Ambientes
+                </span>
+                <p className="font-headline-md text-lg sm:text-xl text-[#FAF7F2] leading-snug mb-3">
+                  Salão Principal que recepciona e conecta às salas privativas de Tatuagem Paramédica, Tricologia e Massoterapia.
+                </p>
+                <div className="grid grid-cols-2 gap-2 pt-3 border-t border-white/10 text-[11px] text-[#FAF7F2]/80">
+                  <div>
+                    <strong className="text-[#C6934B] block">Fundadora:</strong>
+                    Michele Afrodite
+                  </div>
+                  <div>
+                    <strong className="text-[#C6934B] block">Localização:</strong>
+                    Pme Offices Tower, Pagani
+                  </div>
                 </div>
               </div>
-            ))}
-
-            {/* Trust Badge inline */}
-            <div className="hidden md:flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-neutral-200 rounded-full px-4 py-2 shadow-sm ml-4">
-              <div className="flex -space-x-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                ))}
-              </div>
-              <span className="text-[11px] text-neutral-600 font-medium">+2.000 atendimentos</span>
             </div>
-          </motion.div>
+          </div>
+        </div>
+
+        {/* Trust Bar (Barra de Credibilidade) */}
+        <div className="hero-stagger mt-12 md:mt-16 pt-8 border-t border-[#C6934B]/25">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {TRUST_BAR_ITEMS.map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={idx}
+                  className="flex items-center gap-3.5 bg-[#F3ECE3]/90 border border-[#C6934B]/25 rounded-2xl p-4 shadow-2xs"
+                >
+                  <div className="w-11 h-11 rounded-xl bg-[#12100E] text-[#C6934B] flex items-center justify-center shrink-0">
+                    <Icon className="w-5 h-5" aria-hidden="true" />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="font-headline-md text-base text-[#1C1815] font-bold block leading-tight">
+                      {item.label}
+                    </span>
+                    <span className="text-xs text-[#6E6259] block mt-0.5 truncate">
+                      {item.sub}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
-
-      {/* Scroll indicator — hidden when reduced motion is preferred */}
-      {!prefersReducedMotion && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isLoaded ? { opacity: 1 } : {}}
-          transition={{ delay: 1.5, duration: 1 }}
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
-          aria-hidden="true"
-        >
-          <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-400 font-medium">Explore</span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
-            className="w-5 h-8 border-2 border-neutral-300 rounded-full flex justify-center pt-1.5"
-          >
-            <div className="w-1 h-1.5 bg-neutral-400 rounded-full"></div>
-          </motion.div>
-        </motion.div>
-      )}
     </section>
   );
 }

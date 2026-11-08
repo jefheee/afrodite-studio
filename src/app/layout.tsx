@@ -1,54 +1,56 @@
 import type { Metadata } from "next";
-import { Manrope, Noto_Serif } from "next/font/google";
+import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Script from "next/script";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import { LocalBusinessSchema } from "@/components/seo/LocalBusinessSchema";
+import { BookingProvider } from "@/context/BookingContext";
+import { BookingConciergeModal } from "@/components/booking/BookingConcierge";
 import "./globals.css";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const plusJakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin"],
-  weight: ["400", "600"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const notoSerif = Noto_Serif({
-  variable: "--font-noto-serif",
+const cormorantGaramond = Cormorant_Garamond({
+  variable: "--font-cormorant",
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
-/* ─── TODO: Substituir pela URL canônica real do domínio ─── */
-const SITE_URL = "https://www.anamachadoestetica.com.br";
+const SITE_URL = "https://studiomicheleafrodite.com.br";
 
-/* ─── Tracking IDs (lidos de variáveis de ambiente) ─── */
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? ""; // ex: G-XXXXXXX
-const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? ""; // ex: 123456789012345
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "";
+const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Ana Machado Estética Facial | Lash Designer em Palhoça/SC",
-    template: "%s | Ana Machado Estética Facial",
+    default:
+      "Studio Michele Afrodite | Estética, Beleza, Tricologia, Massoterapia e Tatuagem Paramédica em Palhoça",
+    template: "%s | Studio Michele Afrodite",
   },
   description:
-    "Extensão de cílios, design de sobrancelhas, micropigmentação e mentoria VIP presencial em Palhoça/SC. +2.000 atendimentos realizados. Agende pelo WhatsApp.",
+    "Studio Michele Afrodite no Pagani, Palhoça - SC (Pme Offices Tower). 4 ambientes exclusivos: Salão de Beleza (Cabelos, Unhas, Sobrancelhas), Tricologia, Massoterapia e Tatuagem Paramédica (Reconstrução de Aréolas, Camuflagem de Cicatrizes, Micropigmentação e Fine Line).",
   keywords: [
-    "extensão de cílios Palhoça",
-    "lash designer SC",
-    "design de sobrancelhas",
-    "brow lamination",
-    "micropigmentação labial",
-    "curso de cílios presencial",
-    "mentoria lash designer",
-    "Ana Machado estética",
-    "volume brasileiro cílios",
-    "foxy eyes",
+    "Studio Michele Afrodite",
+    "Tatuagem Paramédica Palhoça",
+    "Reconstrução de Aréolas Florianópolis",
+    "Camuflagem de Cicatrizes SC",
+    "Tatuagem Fine Line Palhoça",
+    "Tricologia Palhoça Pagani",
+    "Massoterapia Pagani Palhoça",
+    "Salão de Beleza Pagani Palhoça",
+    "Micropigmentação Palhoça",
+    "Pme Offices Tower estética",
   ],
-  authors: [{ name: "Ana Júlia Machado" }],
-  creator: "Ana Machado Estética Facial",
-  publisher: "Ana Machado Estética Facial",
+  authors: [{ name: "Michele Afrodite" }],
+  creator: "Studio Michele Afrodite",
+  publisher: "Studio Michele Afrodite",
   formatDetection: {
     telephone: true,
     email: false,
@@ -60,26 +62,28 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pt_BR",
     url: SITE_URL,
-    siteName: "Ana Machado Estética Facial",
-    title: "Ana Machado Estética Facial | Lash Designer em Palhoça/SC",
+    siteName: "Studio Michele Afrodite",
+    title:
+      "Studio Michele Afrodite | Estética, Beleza, Tricologia, Massoterapia e Tatuagem Paramédica em Palhoça",
     description:
-      "Extensão de cílios, design de sobrancelhas, micropigmentação e mentoria VIP presencial. +2.000 atendimentos. Agende pelo WhatsApp.",
+      "Studio Michele Afrodite no Pagani, Palhoça - SC (Pme Offices Tower). 4 ambientes exclusivos: Salão de Beleza (Cabelos, Unhas, Sobrancelhas), Tricologia, Massoterapia e Tatuagem Paramédica (Reconstrução de Aréolas, Camuflagem de Cicatrizes, Micropigmentação e Fine Line).",
     images: [
       {
-        url: "/assets/hero-branca.jpg", // TODO: Substituir por OG image dedicada (1200x630)
+        url: "/assets/espaco/decoracoesespaco.jpg",
         width: 1200,
         height: 630,
-        alt: "Ana Machado - Lash Designer e Estética Facial em Palhoça/SC",
+        alt: "Studio Michele Afrodite — Estética, Saúde e Arte Paramédica no Pagani, Palhoça/SC",
         type: "image/jpeg",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ana Machado Estética Facial | Lash Designer",
+    title:
+      "Studio Michele Afrodite | Estética, Beleza, Tricologia, Massoterapia e Tatuagem Paramédica em Palhoça",
     description:
-      "Extensão de cílios, design de sobrancelhas e mentoria VIP presencial em Palhoça/SC.",
-    images: ["/assets/hero-branca.jpg"], // TODO: Substituir por OG image dedicada
+      "Studio Michele Afrodite no Pagani, Palhoça - SC (Pme Offices Tower). 4 salas especializadas em Beleza, Tricologia, Massoterapia e Tatuagem Paramédica & Fine Line.",
+    images: ["/assets/espaco/decoracoesespaco.jpg"],
   },
   robots: {
     index: true,
@@ -100,16 +104,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${manrope.variable} ${notoSerif.variable}`}>
-      {/* ── Google Analytics 4 (via @next/third-parties — optimized loading) ── */}
-      {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
+    <html
+      lang="pt-BR"
+      className={`${plusJakarta.variable} ${cormorantGaramond.variable}`}
+    >
+      {GA_ID ? <GoogleAnalytics gaId={GA_ID} /> : null}
 
-      <body className="bg-background text-on-background antialiased selection:bg-secondary-container selection:text-on-secondary-container">
+      <body className="bg-[#FAF7F2] text-[#1C1815] antialiased selection:bg-[#C6934B] selection:text-[#12100E]">
         <LocalBusinessSchema />
-        {children}
+        <BookingProvider>
+          {children}
+          <BookingConciergeModal />
+        </BookingProvider>
 
-        {/* ── Meta Pixel / Facebook Pixel (afterInteractive = não bloqueia LCP) ── */}
-        {META_PIXEL_ID && (
+        {META_PIXEL_ID ? (
           <Script
             id="meta-pixel"
             strategy="afterInteractive"
@@ -128,7 +136,7 @@ export default function RootLayout({
               `,
             }}
           />
-        )}
+        ) : null}
 
         <SpeedInsights />
         <Analytics />

@@ -1,6 +1,6 @@
 {
-  "name": "anamachado-studio",
-  "version": "0.1.0",
+  "name": "studio-michele-afrodite",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
